@@ -8,12 +8,23 @@ yc_web_page = response.text
 
 soup = BeautifulSoup(yc_web_page, "html.parser")
 
-article_tag = soup.find(name="span", class_="titleline")
-print(article_tag)
-article_text = article_tag.getText()
-print(f"{article_text = }")
+articles = soup.find_all(name="span", class_="titleline")
+print(articles)
+article_texts = []
+article_links = []
 
-article_link = article_tag.select_one(selector=".titleline a").get("href")
-print(article_link)
-article_upvote = soup.find(name="span", class_="score").getText()
-print(f"{article_upvote = }")
+for article_tag in articles:
+
+    article_text = article_tag.getText()
+    article_texts.append(article_text)
+
+    article_link = article_tag.select_one(selector=".titleline a").get("href")
+    article_links.append(article_link)
+
+
+print(f"{article_texts = }")
+print(f"{article_links}")
+article_upvotes = soup.find_all(name="span", class_="score")
+for article_upvote in article_upvotes:
+    upvotes = article_upvote.getText()
+    print(f"{upvotes = }")
