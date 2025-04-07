@@ -1,22 +1,26 @@
-import requests
 from bs4 import BeautifulSoup
+import requests
 
-URL = "https://web.archive.org/web/20200518073855/https://www.empireonline.com/movies/features/best-movies-2/"
+date = str(input("What year do you want to travel to? Type the date in format YYYY-MM-DD: "))
+url  = f"https://www.billboard.com/charts/hot-100/{date}/"
 
-# Write your code below this line 👇
+#url = f"https://www.billboard.com/charts/hot-100/2012-10-10/"
 
-response = requests.get(URL)
-web_page = response.text
+print(url)
 
-soup = BeautifulSoup(web_page, "html.parser")
+# header = {
+#     "User=Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:137.0) Gecko/20100101 Firefox/137.0"
+# }
 
-films = [headline.getText() for headline in soup.find_all(name="h3", class_="title")]
-films.reverse()
-print(films)
+header = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:131.0) Gecko/20100101 Firefox/131.0"}
 
-with open("films.txt", 'w', encoding='utf-8') as f:
-    for film in films:
-        f.write(film)
-        f.write("\n")
+response = requests.get(url, headers=header)
+print(response)
 
+billboard_webpage = response.text
+#print(billboard_webpage)
 
+soup = BeautifulSoup(billboard_webpage, 'html.parser')
+
+songs = [song_name.getText() for song_name in soup.find_all(name="h3", id="title-of-a-story")]
+print(songs)
