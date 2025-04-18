@@ -19,25 +19,34 @@ old_time = time.time()
 
 store = driver.find_elements(By.CSS_SELECTOR, value="#store div")
 item_ids = [item.get_attribute("id") for item in store]
-#print(item_ids)
+print(item_ids)
+store_prices = driver.find_elements(By.CSS_SELECTOR, value='#store b')
+for item in store_prices:
+    actual_price = item.text.split("- ")[1]
+    #replace(",","")
+    print(actual_price)
+
 
 
 #while loop to do bits
-while game_on:
-    cookie.click()
-
-    money = driver.find_element(By.ID, value="money")
-    time_now = time.time()
-
-    if time_now - old_time >= 5:
-
-        store_prices = driver.find_elements(By.CSS_SELECTOR, value='#store b')
-
-
-        old_time = time.time() #set the old to the time now
-    if time_now - start_time >= TIME_TO_PLAY: #check if exceeded play time
-        print("Game Ending...")
-        game_on = False
+# while game_on:
+#     cookie.click()
+#
+#     money = driver.find_element(By.ID, value="money")
+#     time_now = time.time()
+#
+#     if time_now - old_time >= 5:
+#
+#         store_prices = driver.find_elements(By.CSS_SELECTOR, value='#store b')
+#         item_prices = []
+#
+#
+#
+#
+#         old_time = time.time() #set the old to the time now
+#     if time_now - start_time >= TIME_TO_PLAY: #check if exceeded play time
+#         print("Game Ending...")
+#         game_on = False
 
 
 # for i in range(10):
