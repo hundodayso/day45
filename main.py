@@ -13,43 +13,56 @@ driver.get(URL)
 game_on = True
 
 
-cookie = driver.find_element(By.ID, value="cookie")
+
 start_time = time.time()
 old_time = time.time()
 
+##get the IDs of the items in the store###
+
 store = driver.find_elements(By.CSS_SELECTOR, value="#store div")
 item_ids = [item.get_attribute("id") for item in store]
+item_ids.pop()
 print(item_ids)
-store_prices = driver.find_elements(By.CSS_SELECTOR, value='#store b')
-for item in store_prices:
-    actual_price = item.text.split("- ")[1]
-    #replace(",","")
-    print(actual_price)
 
 
 
-#while loop to do bits
-# while game_on:
-#     cookie.click()
-#
-#     money = driver.find_element(By.ID, value="money")
-#     time_now = time.time()
-#
-#     if time_now - old_time >= 5:
-#
-#         store_prices = driver.find_elements(By.CSS_SELECTOR, value='#store b')
-#         item_prices = []
-#
-#
-#
-#
-#         old_time = time.time() #set the old to the time now
-#     if time_now - start_time >= TIME_TO_PLAY: #check if exceeded play time
-#         print("Game Ending...")
-#         game_on = False
+###while loop to do bits
+while game_on:
+    #keep clicking!
+    cookie = driver.find_element(By.ID, value="cookie")
+    cookie.click()
+
+    #determine the time
+    time_now = time.time()
+
+    if time_now - old_time >= 5:
+
+        ##start getting prices
+        store_prices = driver.find_elements(By.CSS_SELECTOR, value='#store b')
+        usable_prices = []
+        for item in store_prices:
+            if item.text != "":
+                actual_price = item.text.split("- ")[1].replace(",", "")
+                #print(actual_price)
+                usable_prices.append(actual_price)
+
+        money_in_bank = driver.find_element(By.ID, value="money").text
+        ##check prices of store to buy
+        for idx, purchase_price in enumerate(reversed(usable_prices)):
+            if money_in_bank > purchase_price:
+                purchase_id = item_ids[idx]
+                purchase = driver.find_element(By.ID, value=purchase_id)
+                purchase.click()
 
 
-# for i in range(10):
-#     cookie.click()
-#
-#     print(money.text)
+
+
+
+
+        old_time = time.time() #set the old to the time now
+    if time_now - start_time >= TIME_TO_PLAY: #check if exceeded play time
+        print("Game Ending...")
+        game_on = False
+
+
+
