@@ -12,11 +12,11 @@ SP_REDIRECT = keys.redirect
 
 scope = "playlist-modify-private"
 
-#date = str(input("What year do you want to travel to? Type the date in format YYYY-MM-DD: "))
-#date = date.strip('-')
-#url  = f"https://www.billboard.com/charts/hot-100/{date}/"
-date = "2012-10-10"
-url = f"https://www.billboard.com/charts/hot-100/2012-10-10/"
+date = str(input("What year do you want to travel to? Type the date in format YYYY-MM-DD: "))
+date = date.strip('-')
+url  = f"https://www.billboard.com/charts/hot-100/{date}/"
+#date = "2012-10-10"
+#url = f"https://www.billboard.com/charts/hot-100/2012-10-10/"
 header = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:131.0) Gecko/20100101 Firefox/131.0"}
 
 response = requests.get(url, headers=header)
