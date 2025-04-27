@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import smtplib
 import keys
-
+from datetime import datetime
 
 SENSOR_ID = "E21511"
 
@@ -13,11 +13,21 @@ params = {
 }
 
 
-response = requests.get(environment_ep, params=params)
+#response = requests.get(environment_ep, params=params)
 
-webpage = response.json()
-print(webpage)
-#
+# webpage = response.json()
+# print(webpage)
+
+#river_level = webpage["items"][0]["latestReading"]["value"]
+#date_time = webpage["items"][0]["latestReading"]["dateTime"]
+
+date_time = "2025-04-27T11:00:00Z"
+time_of_reading = date_t
+
+
+
+print(river_level)
+
 # soup = BeautifulSoup(webpage, 'html.parser')
 #
 # #price = soup.select("div div span")
