@@ -26,7 +26,11 @@ date_time = "2025-04-27T11:00:00Z"
 
 #time_of_reading = date_t
 date2 = datetime.fromisoformat(date_time)
-date3 = datetime.strptime(date_time, '%Y-%m-%d')
+date3 = datetime.strptime(date_time, '%Y-%m-%dT%H:%M:%SZ')
+actual_date = date3.strftime('%d-%m-%Y')
+actual_time = date3.strftime('%H:%M')
+
+print(f'{actual_time= },{actual_date= }')
 
 print(date2)
 print(date3)
