@@ -13,42 +13,19 @@ params = {
     "stationReference": SENSOR_ID
 }
 
+response = requests.get(environment_ep, params=params)
 
-#response = requests.get(environment_ep, params=params)
+river_level_data = response.json()
 
-# webpage = response.json()
-# print(webpage)
+river_level = river_level_data["items"][0]["latestReading"]["value"]
+date_time = river_level_data["items"][0]["latestReading"]["dateTime"]
 
-#river_level = webpage["items"][0]["latestReading"]["value"]
-#date_time = webpage["items"][0]["latestReading"]["dateTime"]
+formatted_date = datetime.strptime(date_time, '%Y-%m-%dT%H:%M:%SZ')
+date_of_reading = formatted_date.strftime('%d-%m-%Y')
+time_of_reading = formatted_date.strftime('%H:%M')
 
-date_time = "2025-04-27T11:00:00Z"
+print(f'{time_of_reading= },{date_of_reading= }')
 
-#time_of_reading = date_t
-date2 = datetime.fromisoformat(date_time)
-date3 = datetime.strptime(date_time, '%Y-%m-%dT%H:%M:%SZ')
-actual_date = date3.strftime('%d-%m-%Y')
-actual_time = date3.strftime('%H:%M')
-
-print(f'{actual_time= },{actual_date= }')
-
-print(date2)
-print(date3)
-
-
-#print(river_level)
-
-# soup = BeautifulSoup(webpage, 'html.parser')
-#
-# #price = soup.select("div div span")
-# price = soup.find(class_="a-offscreen").getText()
-# price_without_currency = float(price.split("£")[1])
-#
-#
-# print(price)
-#
-# print(price_without_currency)
-#
 # ###SEND EMAIL HERE###
 #
 # title = soup.find(id="productTitle").get_text().strip()
